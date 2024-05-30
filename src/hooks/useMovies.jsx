@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { fetchMovies } from '../services/movie'
 
 export function useMovies() {
@@ -6,7 +6,12 @@ export function useMovies() {
 
 	const getMovies = async (search) => {
 		const newSearch = await fetchMovies(search)
-		setMovies(newSearch)	        
-	}    
-    return { movies, getMovies }
+		setMovies(newSearch)
+	}
+
+	useEffect(() => {
+		getMovies('action')		
+	},[])
+
+	return { movies, getMovies }
 }

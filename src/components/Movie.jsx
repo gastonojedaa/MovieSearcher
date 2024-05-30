@@ -33,7 +33,7 @@ export function Movie({ movies }) {
 			{hasMovies ? (
 				responseMovies({ movies })
 			) : (
-				<p className='text-white'>
+				<p className='text-white mt-10'>
 					No movies found. Please search for a movie.
 				</p>
 			)}
