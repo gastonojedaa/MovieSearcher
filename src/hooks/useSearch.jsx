@@ -1,19 +1,13 @@
 import { useEffect, useState } from 'react'
 
-export function useSearch({ getMovies }) {
-	const [search, setSearch] = useState('')
-	const [error, setError] = useState(null)
-
-	const handleChange = (e) => {
-		setSearch(e.target.value)
-	}
-
-	const handleSubmit = (e) => {
-		e.preventDefault()
-		getMovies(search)
-	}
+export function useSearch({search}) {
+	const [error, setError] = useState(null)	
 
 	useEffect(() => {
+		if (!search) {
+			setError(null)
+			return
+		}
 		if (search.length < 3) {
             setError('The movie name must be at least 3 characters long.')
             return
@@ -30,5 +24,5 @@ export function useSearch({ getMovies }) {
 
 	}, [search])
 
-	return { search, handleChange, handleSubmit, error}
+	return { search, error}
 }

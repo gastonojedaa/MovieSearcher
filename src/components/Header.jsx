@@ -1,12 +1,10 @@
-import { useSearch } from '../hooks/useSearch'
 import cinema from '../assets/cinema.png'
-export function Header({ getMovies }) {
-	const { handleSubmit, handleChange, error } = useSearch({ getMovies })
+export function Header({ handleChange, handleSubmit }) {
 	return (
-		<div className='flex flex-col items-center mt-10 space-y-6'>
-			<div className='flex items-center space-x-4 mb-6'>
+		<div className='flex items-center mt-10 space-y-6'>
+			<div className='flex items-center space-x-3 mr-3'>
 				<img src={cinema} alt='logo' className='w-16 h-16' />
-				<h1 className='text-white text-5xl font-bold tracking-wide'>
+				<h1 className='text-white text-5xl font-bold tracking-wide text-center'>
 					Movie Bunker
 				</h1>
 			</div>
@@ -23,16 +21,11 @@ export function Header({ getMovies }) {
 				/>
 				<button
 					type='submit'
-					className='px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 transition'
+					className='px-4 py-2 bg-indigo-700 text-white rounded-md hover:bg-indigo-600 transition'
 				>
 					Search
 				</button>
 			</form>
-			{error && (
-				<p className='flex items-center p-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 mt-10'>
-					{error}
-				</p>
-			)}
 		</div>
 	)
 }

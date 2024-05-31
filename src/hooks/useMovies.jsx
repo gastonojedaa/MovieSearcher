@@ -10,7 +10,7 @@ export function useMovies() {
 	}
 
 	useEffect(() => {
-		getMovies('action')		
+		getMovies('avengers')		
 	},[])
 
 	return { movies, getMovies }
