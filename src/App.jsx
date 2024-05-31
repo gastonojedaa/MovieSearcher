@@ -5,16 +5,23 @@ import { useMovies } from './hooks/useMovies'
 import { useSearch } from './hooks/useSearch'
 import { Footer } from './components/Footer'
 import { useState } from 'react'
+import debounce from 'just-debounce-it'
 export function App() {
 	const { movies, getMovies } = useMovies()
 
 	const [search, setSearch] = useState('')
 	const { error } = useSearch({ search })
 
-	const handleChange = (e) => {
-		setSearch(e.target.value)
-	}
+	const debouncerSearch = debounce((search) => {
+		getMovies(search), 500
+	})
 
+	const handleChange = (e) => {
+		const newSearch = e.target.value.trim()
+		if (newSearch.startsWith(' ')) return
+		setSearch(newSearch)
+		debouncerSearch(newSearch) //se usa el estado actualizado
+	}
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		getMovies(search)
@@ -29,11 +36,11 @@ export function App() {
 					handleSubmit={handleSubmit}
 				/>
 				<main>
-				{error && (
-				<p className='flex justify-center p-4 text-red-800 rounded-lg  dark:text-red-400 mt-10'>
-					{error}
-				</p>
-			)}
+					{error && (
+						<p className='flex justify-center p-4 text-red-800 rounded-lg  dark:text-red-400 mt-10'>
+							{error}
+						</p>
+					)}
 					<Movie movies={movies} />
 				</main>
 				<Footer />
